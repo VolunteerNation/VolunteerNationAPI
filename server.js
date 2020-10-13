@@ -72,6 +72,6 @@ profileRoutes.route('/edit/:id').post(function(req, res) {
 
 app.use('/vnt_profile', profileRoutes);
 
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
