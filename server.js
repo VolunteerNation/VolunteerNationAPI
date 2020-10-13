@@ -11,7 +11,8 @@ let Profile = require('./profile.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/vnt_profile', { useNewUrlParser: true });
+const connString = "mongodb://admin:XHNlY3Rpb257RXhlY3V0aXZlIFN1bW1hcnl9Cg@3.91.214.39:9999/?authSource=admin";
+mongoose.connect(connString, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
