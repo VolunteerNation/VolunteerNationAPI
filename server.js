@@ -11,7 +11,7 @@ let Profile = require('./profile.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-const connString = "mongodb://admin:XHNlY3Rpb257RXhlY3V0aXZlIFN1bW1hcnl9Cg@3.91.214.39:9999/?authSource=admin";
+const connString = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@18.233.225.144:9999/?authSource=admin";
 mongoose.connect(connString, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
