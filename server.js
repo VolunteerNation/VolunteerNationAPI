@@ -30,6 +30,7 @@ profileRoutes.route('/').get(function(req, res) {
     });
 });
 
+// Get a specific profile.
 profileRoutes.route('/:id').get(function(req, res) {
     let id = req.params.id;
     Profile.findById(id, function(err, profile) {
@@ -37,6 +38,7 @@ profileRoutes.route('/:id').get(function(req, res) {
     });
 });
 
+// Add data to a profile for the firs time (may need to be changed based on Mohamed's implementation)
 profileRoutes.route('/register').post(function(req, res) {
     let profile = new Profile(req.body);
     profile.save()
@@ -48,6 +50,8 @@ profileRoutes.route('/register').post(function(req, res) {
         });
 });
 
+
+// Edit existing profile data
 profileRoutes.route('/edit/:id').post(function(req, res) {
     Profile.findById(req.params.id, function(err, profile) {
         if (!profile)
@@ -55,6 +59,7 @@ profileRoutes.route('/edit/:id').post(function(req, res) {
         else
             profile.first_name = req.body.first_name;
             profile.last_name = req.body.last_name;
+            profile.username = req.body.username;
             profile.email = req.body.email;
             profile.street_address = req.body.street_address;
             profile.city_address = req.body.city_address;

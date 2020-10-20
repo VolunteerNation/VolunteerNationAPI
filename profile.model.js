@@ -8,10 +8,12 @@ let Profile = new Schema({
     last_name: {
         type: String
     },
+    username: {
+        type: String
+    },
     email: {
         type: String
     },
-    // Set up DOB here
     street_address: {
         type: String
     },
