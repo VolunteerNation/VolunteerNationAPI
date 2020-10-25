@@ -65,7 +65,14 @@ profileRoutes.route('/edit/:id').post(function(req, res) {
             profile.city_address = req.body.city_address;
             profile.state_address = req.body.state_address;
             profile.zipcode = req.body.zipcode;
-
+            profile.skills.tutor = req.body.skills.tutor;
+            profile.skills.assistant = req.body.skills.assistant;
+            profile.skills.disinfecting = req.body.skills.disinfecting;
+            profile.skills.grocery = req.body.skills.grocery;
+            profile.skills.errands = req.body.skills.errands;
+            profile.skills.prescription = req.body.skills.prescription;
+            profile.skills.social = req.body.skills.social;
+                
             profile.save().then(profile => {
                 res.json('Profile updated');
             })

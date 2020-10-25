@@ -25,6 +25,29 @@ let Profile = new Schema({
     },
     zipcode_address: {
         type: String
+    },
+    skills: {
+        tutor: {
+            type: Boolean
+        },
+        assistant: {
+            type: Boolean
+        },
+        disinfecting: {
+            type: Boolean
+        },
+        grocery: {
+            type: Boolean
+        },
+        errands: {
+            type: Boolean
+        },
+        prescription: {
+            type: Boolean
+        },
+        social: {
+            type: Boolean
+        }
     }
 });
 
