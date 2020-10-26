@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const profileRoutes = express.Router();
 const PORT = 4000;
+const PROFILE_API_PREFIX = '/vnt_profile';
 
 let Profile = require('./profile.model');
 
@@ -75,7 +76,7 @@ profileRoutes.route('/edit/:id').post(function(req, res) {
     });
 });
 
-app.use('/vnt_profile', profileRoutes);
+app.use(PROFILE_API_PREFIX, profileRoutes);
 
 app.listen(process.env.PORT || PORT, function() {
     console.log("Server is running on Port: " + PORT);
