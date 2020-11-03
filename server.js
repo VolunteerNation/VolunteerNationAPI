@@ -6,14 +6,13 @@ const mongoose = require('mongoose');
 const profileRoutes = express.Router();
 const PORT = 4000;
 const PROFILE_API_PREFIX = '/vnt_profile';
-
+const constants = require("./constants");
 let Profile = require('./profile.model');
 
 app.use(cors());
 app.use(bodyParser.json());
 
-const connString = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@18.233.225.144:9999/?authSource=admin";
-mongoose.connect(connString, { useNewUrlParser: true });
+mongoose.connect(constants.CONN_STRING, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
