@@ -38,10 +38,10 @@ router.route('/register').post(function (req, res) {
 // Edit existing profile data
 router.route('/edit/:id').post(function (req, res) {
     Profile.findById(req.params.id, function (err, profile) {
-        if (!profile)
-            res.status(400).send(vntUtil.errorMsg('data is not found'));
-        else
-            profile.first_name = req.body.first_name;
+        if (!profile) {
+            return res.status(400).send(vntUtil.errorMsg('profile is not found'));
+        }
+        profile.first_name = req.body.first_name;
         profile.last_name = req.body.last_name;
         profile.username = req.body.username;
         profile.email = req.body.email;
@@ -52,8 +52,7 @@ router.route('/edit/:id').post(function (req, res) {
 
         profile.save().then(profile => {
             res.json(vntUtil.successMsg('Profile updated'));
-        })
-            .catch(err => {
+        }).catch(err => {
                 res.status(500).send(vntUtil.errorMsg('Update not possible'));
             });
     });

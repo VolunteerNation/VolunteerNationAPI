@@ -1,3 +1,6 @@
+const jsonwebtoken = require('jsonwebtoken');
+const jwt = require('express-jwt');
+
 const AWS_IP = "3.88.34.151";
 const CONN_STRING = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@" + AWS_IP + ":9999/?authSource=admin";
 const PROFILE_API_PREFIX = '/vnt_profile';
@@ -18,15 +21,24 @@ const errorMsg = (msg) => {
     };
 }
 
-function createToken() {
+const authMiddleware = () => jwt({
+    secret,
+    audience,
+    issuer,
+    algorithms: ['HS256']
+});
+
+const createToken = () => {
     const token = jsonwebtoken.sign({foo: 'bar'}, secret, {
         audience,
-        issuer
+        issuer,
+        algorithms: ['HS256']
     });
     return token;
-}
+};
 
 module.exports = {
+    authMiddleware,
     createToken,
     successMsg,
     errorMsg,

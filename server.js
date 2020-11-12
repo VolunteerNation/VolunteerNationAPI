@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const vntUtil = require("./vntUtil");
-const jsonwebtoken = require('jsonwebtoken');
-const jwt = require('express-jwt');
 
 const profileRoutes = require("./profile/routes");
 const loginRoutes = require("./login/routes");
