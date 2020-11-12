@@ -6,6 +6,7 @@ const vntUtil = require('../vntUtil');
 // Gives all profiles - will use for debugging in Postman but will remove later
 router.route('/').get(function (req, res) {
     Profile.find(function (err, profiles) {
+        console.log(req);
         if (err) {
             console.log(err);
         } else {

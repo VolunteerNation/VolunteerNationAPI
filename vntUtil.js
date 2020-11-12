@@ -24,16 +24,16 @@ const errorMsg = (msg) => {
 const authMiddleware = () => jwt({
     secret,
     audience,
-    issuer,
-    algorithms: ['HS256']
+    issuer
 });
 
 const createToken = () => {
-    const token = jsonwebtoken.sign({foo: 'bar'}, secret, {
-        audience,
-        issuer,
-        algorithms: ['HS256']
-    });
+    console.log("createToken called");
+    const token = jsonwebtoken.sign({foo: 'bar'},secret,
+        { audience : audience,
+        issuer: issuer}
+    );
+    console.log("createToken complete");
     return token;
 };
 
