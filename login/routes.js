@@ -14,8 +14,10 @@ const vntUtil = require('../vntUtil');
 // router.get("/dashboard", )
 
 router.post('/auth', (req, res) => {
-    const email = req.email;
-    const password = req.password;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    console.log(req.body);
 
     User.findOne({email: email})
         .then((user) => {
@@ -57,8 +59,6 @@ router.post("/register", (req, res) => {
         errors.push(vntUtil.errorMsg("Password should be at least 6 characters"));
     }
 
-    console.log("Error_length");
-    console.log(errors[0]);
     if (errors.length > 0) {
 
         return res.status(400).json(errors);
