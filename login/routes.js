@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const User = require("./models/user.model");
 const bcrypt = require("bcryptjs");
+const {body, validationResult} = require('express-validator');
 const vntUtil = require('../vntUtil');
+
 
 // Login User
 // router.get("/login", (req, res) => res.render("login"));
@@ -13,7 +15,14 @@ const vntUtil = require('../vntUtil');
 // Dashboard
 // router.get("/dashboard", )
 
-router.post('/auth', (req, res) => {
+router.post('/auth', body('email').isEmail(), body('password').isLength({min: 5}), (req, res) => {
+
+    const validationResult1 = validationResult(req);
+    if (!validationResult1.isEmpty()) {
+        return res.status(400).json(vntUtil.errorMsg(validationResult1.array()));
+    }
+
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -40,8 +49,13 @@ router.post('/auth', (req, res) => {
 
 
 // Registeration handler
-router.post("/register", (req, res) => {
+router.post("/register", body('email').isEmail(), body('password').isLength({min: 5}), (req, res) => {
     console.log(req.body);
+
+    const validationResult1 = validationResult(req);
+    if (!validationResult1.isEmpty()) {
+        return res.status(400).json(vntUtil.errorMsg(validationResult1.array()));
+    }
 
     const {name, email, password, password2} = req.body;
 
