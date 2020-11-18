@@ -29,9 +29,11 @@ const authMiddleware = () => jwt({
 
 const createToken = () => {
     console.log("createToken called");
-    const token = jsonwebtoken.sign({foo: 'bar'},secret,
-        { audience : audience,
-        issuer: issuer}
+    const token = jsonwebtoken.sign({foo: 'bar'}, secret,
+        {
+            audience: audience,
+            issuer: issuer
+        }
     );
     console.log("createToken complete");
     return token;

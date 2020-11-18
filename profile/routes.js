@@ -54,8 +54,8 @@ router.route('/edit/:id').post(function (req, res) {
         profile.save().then(profile => {
             res.json(vntUtil.successMsg('Profile updated'));
         }).catch(err => {
-                res.status(500).send(vntUtil.errorMsg('Update not possible'));
-            });
+            res.status(500).send(vntUtil.errorMsg('Update not possible'));
+        });
     });
 });
 
