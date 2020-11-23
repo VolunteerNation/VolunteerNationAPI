@@ -5,6 +5,7 @@ const AWS_IP = "3.88.34.151";
 const CONN_STRING = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@" + AWS_IP + ":9999/?authSource=admin";
 const PROFILE_API_PREFIX = '/vnt_profile';
 const USER_API_PREFIX = '/vnt_user';
+const POST_API_PREFIX = '/vnt_post';
 const PORT = 4000;
 const secret = 'secret';
 const audience = 'http://myapi/protected';
@@ -21,15 +22,32 @@ const errorMsg = (msg) => {
     };
 }
 
-const authMiddleware = () => jwt({
-    secret,
-    audience,
-    issuer
-});
+// const authMiddleware = () => jwt({
+//     secret: secret,
+//     // audience: audience,
+//     // issuer: issuer,
+//     algorithms: ["HS256"]
+// });
 
-const createToken = () => {
+const authMiddleware = (req,res, next) => {
+    const token = req.header('auth-token');
+    if(!token) {
+        return res.status(401).send('Access Denied');
+    }
+    console.log(token);
+    try{
+        const verified = jsonwebtoken.verify(token, secret);
+        console.log(verified);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(400).send('Invalid Token');
+    }
+}
+
+const createToken = (email) => {
     console.log("createToken called");
-    const token = jsonwebtoken.sign({foo: 'bar'}, secret,
+    const token = jsonwebtoken.sign({email: email}, secret,
         {
             audience: audience,
             issuer: issuer
@@ -51,5 +69,6 @@ module.exports = {
     CONN_STRING,
     PROFILE_API_PREFIX,
     USER_API_PREFIX,
+    POST_API_PREFIX,
     PORT
 }

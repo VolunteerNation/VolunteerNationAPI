@@ -37,7 +37,7 @@ router.post('/auth', body('email').isEmail(), body('password').isLength({min: 5}
             bcrypt.compare(password, user.password, (err, isMatched) => {
                 if (err) throw err;
                 if (isMatched) {
-                    const token = vntUtil.createToken();
+                    const token = vntUtil.createToken(email);
                     return res.status(200).json(token);
                 } else {
                     return res.status(401).json(vntUtil.errorMsg('Password incorrect.'));
@@ -103,7 +103,7 @@ router.post("/register", body('email').isEmail(), body('password').isLength({min
                         newUser
                             .save()
                             .then((user) => {
-                                const token = vntUtil.createToken();
+                                const token = vntUtil.createToken(email);
                                 return res.status(200).json(token);
                             })
                             .catch((err) => res.status(500).send(err));
