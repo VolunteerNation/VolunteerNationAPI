@@ -24,15 +24,19 @@ router.post('/create', authMiddleware, (req,res) => {
         completionDate
     } = req.body;
 
-    User.findOne({email: req.user.email}).then((user) => {
+    console.log(req.user.email);
+
+    User.findOne({email: req.user.email}).then((email) => {
         console.log("Find one initiated");
-        console.log(user);
-        if (!user) {
+        let user_email = email.email;
+        console.log(user_email);
+        if (!email) {
             errors.push({msg: "Not a registered user"});
             console.log("User mismatch");
             return res.status(400).json(errors);
         } else {
             const newPost = new Post({
+                "email": user_email,
                 firstName,
                 lastInitial,
                 assignedVolunteer,
@@ -54,70 +58,44 @@ router.post('/create', authMiddleware, (req,res) => {
     });
 });
 
-// // Registeration handler
-// router.post("/register", body('email').isEmail(), body('password').isLength({min: 5}), (req, res) => {
-//     console.log(req.body);
+router.get('/', authMiddleware, (req, res) => {
+    console.log('Get all posts called.');
 
-//     const validationResult1 = validationResult(req);
-//     if (!validationResult1.isEmpty()) {
-//         return res.status(400).json(vntUtil.errorMsg(validationResult1.array()));
-//     }
+    User.findOne({email: req.user.email}).then((email) => {
+        console.log("Find one initiated");
+        console.log(email);
+        if (!email) {
+            errors.push({msg: "Not a registered user"});
+            console.log("User mismatch");
+            return res.status(400).json(errors);
+        } else {
+            allPosts = []
+            
+            //From here you can take all posts from the database and put them into the allPosts array.
+            
+            return res.status(200).send(allPosts);
+        }
+    });
+});
 
-//     const {name, email, password, password2} = req.body;
+router.get('/my_posts', authMiddleware, (req, res) => {
+    console.log('Get all users\' posts called.');
 
-//     console.log(name);
-
-//     let errors = [];
-//     if (!name || !email || !password || !password2) {
-//         errors.push(vntUtil.errorMsg("Please fill all fields"));
-//     }
-//     if (password != password2) {
-//         errors.push(vntUtil.errorMsg("Passwords do not match"));
-//     }
-//     const pass = String(password);
-//     if (pass.length < 6) {
-//         errors.push(vntUtil.errorMsg("Password should be at least 6 characters"));
-//     }
-
-//     if (errors.length > 0) {
-
-//         return res.status(400).json(errors);
-
-//     } else {
-//         // if the validation is successful
-//         User.findOne({email: email}).then((user) => {
-//             console.log("Find one initiated");
-//             console.log(user);
-//             if (user) {
-//                 errors.push({msg: "User is already registered"});
-//                 console.log("Dupe user");
-//                 return res.status(400).json(errors);
-//             } else {
-//                 const newUser = new User({
-//                     name,
-//                     email,
-//                     password,
-//                 });
-
-//                 // Hashing the password
-//                 bcrypt.genSalt(10, (err, salt) =>
-//                     bcrypt.hash(newUser.password, salt, (err, hash) => {
-//                         console.log("Inside bcrypt");
-//                         if (err) throw err;
-//                         newUser.password = hash;
-//                         // Save the user to Mongodb
-//                         newUser
-//                             .save()
-//                             .then((user) => {
-//                                 const token = vntUtil.createToken();
-//                                 return res.status(200).json(token);
-//                             })
-//                             .catch((err) => res.status(500).send(err));
-//                     })
-//                 );
-//             }
-//         });
-//     }
-// });
+    User.findOne({email: req.user.email}).then((email) => {
+        console.log("Find one initiated");
+        console.log(email);
+        if (!email) {
+            errors.push({msg: "Not a registered user"});
+            console.log("User mismatch");
+            return res.status(400).json(errors);
+        } else {
+            userPosts = []
+            
+            //From here you can take all posts from the database from the given email.
+            
+            return res.status(200).send(userPosts);
+        }
+    });
+});
 
 module.exports = router;
