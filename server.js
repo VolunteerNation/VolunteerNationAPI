@@ -1,3 +1,5 @@
+const helmet = require("helmet");
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -10,6 +12,8 @@ const loginRoutes = require("./login/routes");
 const postRoutes = require("./post/routes");
 
 app.use(cors());
+
+app.use(helmet());
 app.use(bodyParser.json());
 
 mongoose.connect(vntUtil.CONN_STRING, {useNewUrlParser: true});
