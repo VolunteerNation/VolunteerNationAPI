@@ -29,13 +29,13 @@ const errorMsg = (msg) => {
 //     algorithms: ["HS256"]
 // });
 
-const authMiddleware = (req,res, next) => {
+const authMiddleware = (req, res, next) => {
     const token = req.header('auth-token');
-    if(!token) {
+    if (!token) {
         return res.status(401).send('Access Denied');
     }
     console.log(token);
-    try{
+    try {
         const verified = jsonwebtoken.verify(token, secret);
         console.log(verified);
         req.user = verified;

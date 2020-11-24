@@ -5,9 +5,9 @@ const User = require("../login/models/user.model");
 const bcrypt = require("bcryptjs");
 const {body, validationResult} = require('express-validator');
 const vntUtil = require('../vntUtil');
-const { authMiddleware } = require("../vntUtil");
+const {authMiddleware} = require("../vntUtil");
 
-router.post('/create', authMiddleware, (req,res) => {
+router.post('/create', authMiddleware, (req, res) => {
     console.log('Create called.');
 
     const {
@@ -53,7 +53,7 @@ router.post('/create', authMiddleware, (req,res) => {
 
             //From here you can take the newPost object and send to Database
 
-            return res.status(200).send('Return create called.');    
+            return res.status(200).send('Return create called.');
         }
     });
 });
@@ -70,9 +70,9 @@ router.get('/', authMiddleware, (req, res) => {
             return res.status(400).json(errors);
         } else {
             allPosts = []
-            
+
             //From here you can take all posts from the database and put them into the allPosts array.
-            
+
             return res.status(200).send(allPosts);
         }
     });
@@ -90,9 +90,9 @@ router.get('/my_posts', authMiddleware, (req, res) => {
             return res.status(400).json(errors);
         } else {
             userPosts = []
-            
+
             //From here you can take all posts from the database from the given email.
-            
+
             return res.status(200).send(userPosts);
         }
     });
