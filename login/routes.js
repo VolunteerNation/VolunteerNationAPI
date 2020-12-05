@@ -65,7 +65,7 @@ router.post("/register", body('email').isEmail(), body('password').isLength({min
     if (!name || !email || !password || !password2) {
         errors.push(vntUtil.errorMsg("Please fill all fields"));
     }
-    if (password != password2) {
+    if (password !== password2) {
         errors.push(vntUtil.errorMsg("Passwords do not match"));
     }
     const pass = String(password);
