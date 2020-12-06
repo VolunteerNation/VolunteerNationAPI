@@ -8,9 +8,17 @@ const vntUtil = require("../vntUtil");
 const { authMiddleware } = require("../vntUtil");
 const mongoose = require("mongoose");
 
+<<<<<<< HEAD
 router.post("/create", authMiddleware, (req, res) => {
 // router.post("/create", (req, res) => {
   console.log("Create called.");
+||||||| 2937757
+router.post('/create', authMiddleware, (req, res) => {
+    console.log('Create called.');
+=======
+router.post("/create", authMiddleware, (req, res) => {
+  console.log("Create called.");
+>>>>>>> 93cea2038cc8e7a90b2aeb8a790ca348554109cf
 
   const {
     firstName,
