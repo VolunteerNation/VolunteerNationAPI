@@ -15,10 +15,10 @@ router.post("/create", authMiddleware, (req, res) => {
     firstName,
     lastInitial,
     assignedVolunteer,
-    postId,
+    // postId,
     description,
     category,
-    thumbnailType,
+    // thumbnailType,
     city,
     state,
     completionStatus,
@@ -41,10 +41,10 @@ router.post("/create", authMiddleware, (req, res) => {
         firstName,
         lastInitial,
         assignedVolunteer,
-        postId,
+        // postId,
         description,
         category,
-        thumbnailType,
+        // thumbnailType,
         city,
         state,
         completionStatus,
@@ -53,7 +53,6 @@ router.post("/create", authMiddleware, (req, res) => {
       console.log(newPost);
 
       //From here you can take the newPost object and send to Database
-      allPosts.push(newPost);
       newPost
         .save()
         .then((post) => {
@@ -62,66 +61,24 @@ router.post("/create", authMiddleware, (req, res) => {
         .catch((err) => {
           res.status(400).send(`unable to save to database ${err}`);
         });
-
-      // return res.status(200).send("Return create called.");
     }
   });
 });
 
 router.get("/", authMiddleware, (req, res) => {
-  console.log("Get all posts called.");
-
-  const allPosts = [];
-  Post.find({}).then(posts => {
-    allPosts.push(res.json(posts));
-  }).catch(err => res.status(400).send(`unable to save to database ${err}`));
-
-  return res.status(200).send(allPosts);
-
-
-  // User.findOne({ email: req.user.email }).then((email) => {
-  //   console.log("Find one initiated");
-  //   console.log(email);
-  //   if (!email) {
-  //     // errors.push({ msg: "Not a registered user" });
-  //     console.log("User mismatch");
-  //     return res.status(400);
-  //   } else {
-  //     //From here you can take all posts from the database and put them into the allPosts array.
-  //
-  //   }
-  // });
+    console.log("Get all posts called.");
+    Post.find({}).then(
+    posts => {
+        return res.status(200).send(posts);
+    }).catch(err => res.status(400).send(`unable to save to database ${err}`));
 });
 
 router.get("/my_posts", authMiddleware, (req, res) => {
-  console.log("Get all users' posts called.");
-
-  const userPosts = [];
-  Post.find({"email": req.user.email}, (err, posts) => {
-    if (err) {
-      console.log(err);
-    } else {
-      userPosts.push(res.json(posts));
-      // res.render('/my_posts', {currentUser: req.user, posts: posts})
-    }
-    return res.status(200).send(userPosts);
-  })
-
-  // User.findOne({ email: req.user.email }).then((email) => {
-  //   console.log("Find one initiated");
-  //   console.log(email);
-  //   if (!email) {
-  //     // errors.push({ msg: "Not a registered user" });
-  //     console.log("User mismatch");
-  //     return res.status(400).json(errors);
-  //   } else {
-  //     userPosts = [];
-  //
-  //     //From here you can take all posts from the database from the given email.
-  //
-  //     return res.status(200).send(userPosts);
-  //   }
-  // });
+    console.log("Get all users' posts called.");
+    Post.find({"email": req.user.email}).then(
+        posts => {
+            return res.status(200).send(posts);
+        }).catch(err => res.status(400).send(`unable to save to database ${err}`));
 });
 
 module.exports = router;

@@ -18,10 +18,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    postId: {
-        type: Number,
-        required: true,
-    },
+    // postId: {
+    //     type: Number,
+    //     required: true,
+    // },
     description: {
         type: String,
         required: true,
@@ -30,10 +30,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    thumbnailType: {
-        type: String,
-        required: true,
-    },
+    // thumbnailType: {
+    //     type: String,
+    //     required: true,
+    // },
     city: {
         type: String,
         required: true,
