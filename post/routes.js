@@ -65,7 +65,7 @@ router.post("/create", authMiddleware, (req, res) => {
   });
 });
 
-router.get("/", authMiddleware, (req, res) => {
+router.get("/", (req, res) => {
     console.log("Get all posts called.");
     Post.find({}).then(
     posts => {
@@ -79,6 +79,17 @@ router.get("/my_posts", authMiddleware, (req, res) => {
         posts => {
             return res.status(200).send(posts);
         }).catch(err => res.status(400).send(`unable to save to database ${err}`));
+});
+
+router.post("/volunteer/", authMiddleware, (req, res) => {
+    console.log("Update Post called.");
+    Post.findById(req.body.id).then(
+        post=> {
+            post.assignedVolunteer = req.user.email;
+
+            post.save().then( () => {
+            return res.send("User assigned as volunteer");})
+        }).catch(err => res.status(400).send(`unable to set as volunteer ${err}`));
 });
 
 module.exports = router;
