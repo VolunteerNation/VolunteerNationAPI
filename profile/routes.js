@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 let Profile = require('./models/profile.model');
-const vntUtil = require('../vntUtil');
+const vntUtil = require('../util/vntUtil');
 
 // Gives all profiles - will use for debugging in Postman but will remove later
 router.route('/').get(function (req, res) {

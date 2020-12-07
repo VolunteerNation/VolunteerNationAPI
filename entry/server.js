@@ -5,11 +5,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const vntUtil = require("./vntUtil");
+const vntUtil = require("../util/vntUtil");
 
-const profileRoutes = require("./profile/routes");
-const loginRoutes = require("./login/routes");
-const postRoutes = require("./post/routes");
+const profileRoutes = require("../profile/routes");
+const loginRoutes = require("../login/routes");
+const postRoutes = require("../post/routes");
 
 app.use(cors());
 

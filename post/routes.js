@@ -4,8 +4,8 @@ const Post = require("./models/post.model");
 const User = require("../login/models/user.model");
 const bcrypt = require("bcryptjs");
 const {body, validationResult} = require("express-validator");
-const vntUtil = require("../vntUtil");
-const {authMiddleware} = require("../vntUtil");
+const vntUtil = require("../util/vntUtil");
+const {authMiddleware} = require("../util/vntUtil");
 const mongoose = require("mongoose");
 
 router.post("/create", authMiddleware, (req, res) => {

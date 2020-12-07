@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("./models/user.model");
 const bcrypt = require("bcryptjs");
 const {body, validationResult} = require('express-validator');
-const vntUtil = require('../vntUtil');
+const vntUtil = require('../util/vntUtil');
 
 
 // Login User
