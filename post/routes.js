@@ -85,10 +85,13 @@ router.post("/volunteer/", authMiddleware, (req, res) => {
     console.log("Update Post called.");
     Post.findById(req.body.id).then(
         post=> {
-            post.assignedVolunteer = req.user.email;
+            User.findOne({ email: req.user.email }).then(user => {
+              post.assignedVolunteer = user.name;
 
-            post.save().then( () => {
-            return res.send("User assigned as volunteer");})
+              post.save().then( () => {
+              return res.send("User assigned as volunteer");
+            });
+          });
         }).catch(err => res.status(400).send(`unable to set as volunteer ${err}`));
 });
 
