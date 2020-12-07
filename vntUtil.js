@@ -32,6 +32,7 @@ const errorMsg = (msg) => {
 const authMiddleware = (req, res, next) => {
     console.log('token attempting to verify');
     const token = req.header('auth-token');
+    console.log(token);
     if (!token) {
         return res.status(401).send('Access Denied');
     }
