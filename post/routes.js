@@ -3,9 +3,9 @@ const router = express.Router();
 const Post = require("./models/post.model");
 const User = require("../login/models/user.model");
 const bcrypt = require("bcryptjs");
-const { body, validationResult } = require("express-validator");
+const {body, validationResult} = require("express-validator");
 const vntUtil = require("../vntUtil");
-const { authMiddleware } = require("../vntUtil");
+const {authMiddleware} = require("../vntUtil");
 const mongoose = require("mongoose");
 
 router.post("/create", authMiddleware, (req, res) => {
@@ -27,12 +27,12 @@ router.post("/create", authMiddleware, (req, res) => {
 
   console.log(req.user.email);
 
-  User.findOne({ email: req.user.email }).then((email) => {
+  User.findOne({email: req.user.email}).then((email) => {
     console.log("Find one initiated");
     let user_email = email.email;
     console.log(user_email);
     if (!email) {
-      errors.push({ msg: "Not a registered user" });
+      errors.push({msg: "Not a registered user"});
       console.log("User mismatch");
       return res.status(400).json(errors);
     } else {
@@ -66,33 +66,33 @@ router.post("/create", authMiddleware, (req, res) => {
 });
 
 router.get("/", (req, res) => {
-    console.log("Get all posts called.");
-    Post.find({}).then(
+  console.log("Get all posts called.");
+  Post.find({}).then(
     posts => {
-        return res.status(200).send(posts);
+      return res.status(200).send(posts);
     }).catch(err => res.status(400).send(`unable to save to database ${err}`));
 });
 
 router.get("/my_posts", authMiddleware, (req, res) => {
-    console.log("Get all users' posts called.");
-    Post.find({"email": req.user.email}).then(
-        posts => {
-            return res.status(200).send(posts);
-        }).catch(err => res.status(400).send(`unable to save to database ${err}`));
+  console.log("Get all users' posts called.");
+  Post.find({"email": req.user.email}).then(
+    posts => {
+      return res.status(200).send(posts);
+    }).catch(err => res.status(400).send(`unable to save to database ${err}`));
 });
 
 router.post("/volunteer/", authMiddleware, (req, res) => {
-    console.log("Update Post called.");
-    Post.findById(req.body.id).then(
-        post=> {
-            User.findOne({ email: req.user.email }).then(user => {
-              post.assignedVolunteer = user.name;
+  console.log("Update Post called.");
+  Post.findById(req.body.id).then(
+    post => {
+      User.findOne({email: req.user.email}).then(user => {
+        post.assignedVolunteer = user.name;
 
-              post.save().then( () => {
-              return res.send("User assigned as volunteer");
-            });
-          });
-        }).catch(err => res.status(400).send(`unable to set as volunteer ${err}`));
+        post.save().then(() => {
+          return res.send("User assigned as volunteer");
+        });
+      });
+    }).catch(err => res.status(400).send(`unable to set as volunteer ${err}`));
 });
 
 module.exports = router;

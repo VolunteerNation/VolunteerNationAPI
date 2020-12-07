@@ -12,14 +12,14 @@ const audience = 'http://myapi/protected';
 const issuer = 'http://issuer';
 
 const successMsg = (msg) => {
-    return {
-        msg: msg
-    };
+  return {
+    msg: msg
+  };
 }
 const errorMsg = (msg) => {
-    return {
-        msg: msg
-    };
+  return {
+    msg: msg
+  };
 }
 
 // const authMiddleware = () => jwt({
@@ -30,47 +30,47 @@ const errorMsg = (msg) => {
 // });
 
 const authMiddleware = (req, res, next) => {
-    console.log('token attempting to verify');
-    const token = req.header('auth-token');
-    console.log(token);
-    if (!token) {
-        return res.status(401).send('Access Denied');
-    }
-    console.log(token);
-    try {
-        const verified = jsonwebtoken.verify(token, secret);
-        console.log(verified);
-        req.user = verified;
-        next();
-    } catch (err) {
-        res.status(400).send('Invalid Token');
-    }
+  console.log('token attempting to verify');
+  const token = req.header('auth-token');
+  console.log(token);
+  if (!token) {
+    return res.status(401).send('Access Denied');
+  }
+  console.log(token);
+  try {
+    const verified = jsonwebtoken.verify(token, secret);
+    console.log(verified);
+    req.user = verified;
+    next();
+  } catch (err) {
+    res.status(400).send('Invalid Token');
+  }
 }
 
 const createToken = (email) => {
-    console.log("createToken called");
-    const token = jsonwebtoken.sign({email: email}, secret,
-        {
-            audience: audience,
-            issuer: issuer
-        }
-    );
-    console.log("createToken complete");
-    return token;
+  console.log("createToken called");
+  const token = jsonwebtoken.sign({email: email}, secret,
+    {
+      audience: audience,
+      issuer: issuer
+    }
+  );
+  console.log("createToken complete");
+  return token;
 };
 
 module.exports = {
-    authMiddleware,
-    createToken,
-    successMsg,
-    errorMsg,
-    secret,
-    audience,
-    issuer,
-    AWS_IP,
-    CONN_STRING,
-    PROFILE_API_PREFIX,
-    USER_API_PREFIX,
-    POST_API_PREFIX,
-    PORT
+  authMiddleware,
+  createToken,
+  successMsg,
+  errorMsg,
+  secret,
+  audience,
+  issuer,
+  AWS_IP,
+  CONN_STRING,
+  PROFILE_API_PREFIX,
+  USER_API_PREFIX,
+  POST_API_PREFIX,
+  PORT
 }
