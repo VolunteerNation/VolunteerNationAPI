@@ -2,7 +2,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const jwt = require('express-jwt');
 
 const AWS_IP = "3.88.34.151";
-const CONN_STRING = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@" + AWS_IP + ":9999/?authSource=admin";
+const MONGODB_CONN_STRING = "mongodb://admin:ZGIuY3JlYXRlVXNlIGFrbGRmYWxrZGZqYSBkZgo=@" + AWS_IP + ":9999/?authSource=admin";
 const PROFILE_API_PREFIX = '/vnt_profile';
 const USER_API_PREFIX = '/vnt_user';
 const POST_API_PREFIX = '/vnt_post';
@@ -68,7 +68,7 @@ module.exports = {
   audience,
   issuer,
   AWS_IP,
-  CONN_STRING,
+  MONGODB_CONN_STRING,
   PROFILE_API_PREFIX,
   USER_API_PREFIX,
   POST_API_PREFIX,
